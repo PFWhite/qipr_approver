@@ -30,14 +30,34 @@ look up and add those related objects. [[https://docs.djangoproject.com/en/1.9/t
 - [X] tags natural key
 - [X] address natural key
 ** TODO Related object dependencies
-Registry must be able to get related objects that are not in the registry
-already. These are most likely already in the registry db but could not be
-due to network failure or something.
-*** option 1: Pass leaf models first
-- [ ] when serializing, make sure related objects are in the registry
-- [ ] when adding the model make sure to respond to dependency errors
-*** option 2: bidirectional communication
-- [ ] approver enpoints so registry can ask for the things it lacks
+Models cannot be added to a remote database if the foreign keys referenced
+in related relationships do not correspond to an existing model in the
+remote database.
+
+Therefore when transferring models, we have to transfer them without
+their relationships. Some time after, we can link them up.
+
+We could serialize and expand recursively if there wasnt the danger 
+of circular dependancies. 
+
+I.E. person A owns project Z which has B is a collaborator on project X 
+which has person A as a collaborator. 
+
+Expansion will not terminate in the previous case
+*** Pass models without relations
+- [ ] when serializing, pass model without relations
+- [ ] check to see if adjacent models are in the registry
+  - [ ] if yes, connect the relations
+  - [ ] if no, get those over sometime 
+**** option 1: do not pass relationships
+- [ ] periodically check and see if we can connect models
+- [ ] when we can submit the connections to make
+**** option 2: pass the relationship adjacency matrix
+- [ ] pass over all the natural key adjacency information
+- [ ] have registry fill in the relationships periodically
+** TODO Related object deserialization
+Since we are serializing with natural_keys we need to define
+how to reserialize. This will be needed in the registry as well
 * Registry Implementation
 ** TODO Api endpoints
 ** TODO Make sure that the Approver has to log in or verify its identity
