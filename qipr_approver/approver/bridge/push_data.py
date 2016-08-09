@@ -6,7 +6,7 @@ import approver.models
 from approver.constants import registry_endpoints, api_username
 
 def __jsonify(model):
-    return serializers.serialize('json', [model])
+    return serializers.serialize('json', [model], use_natural_foreign_keys=True, use_natural_primary_keys=True)
 
 def push_model(model):
     api_user = User.objects.get(username=api_username)

@@ -21,13 +21,14 @@ CLOSED: [2016-08-05 Fri 11:45]
 - [X] fixtures contains the api user
 - [X] constants file has right api username
 - [X] pushdata grabs the username from constants to make those changes
-** TODO Model natural key
+** DONE Model natural key
+CLOSED: [2016-08-09 Tue 13:33]
 Models must contain a natural key in order for the registry database to
 look up and add those related objects. [[https://docs.djangoproject.com/en/1.9/topics/serialization/][Search for "natural key".]] 
 - [X] person natural key
-- [ ] project natural key
-- [ ] tags natural key
-- [ ] address natural key
+- [X] project natural key
+- [X] tags natural key
+- [X] address natural key
 ** TODO Related object dependencies
 Registry must be able to get related objects that are not in the registry
 already. These are most likely already in the registry db but could not be

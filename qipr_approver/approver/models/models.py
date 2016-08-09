@@ -8,6 +8,14 @@ from approver.constants import STATE_CHOICES, COUNTRY_CHOICES
 from approver import utils
 from approver.models.bridge_models import Registerable
 
+class TagNaturalKey(models.Model):
+
+    def natural_key(self):
+        return (self.name, self.description or '')
+
+    class Meta:
+        abstract = True
+
 class TaggedWithName(models.Model):
     tag_property_name = 'name'
     class Meta:
@@ -41,7 +49,7 @@ class Provenance(models.Model):
     class Meta:
         abstract = True
 
-class Training(Provenance, NamePrint, TaggedWithName, Registerable):
+class Training(Provenance, NamePrint, TaggedWithName, Registerable, TagNaturalKey):
     name = models.CharField(max_length=200)
 
 class Organization(Provenance):
@@ -129,6 +137,9 @@ class Person(Provenance, Registerable):
     def __str__(self):
         return ' '.join([str(item) for item in [self.first_name, self.last_name, self.email_address]])
 
+    def natural_key(self):
+        return (self.gatorlink, self.first_name, self.last_name)
+
 
 class Project(Provenance, Registerable):
     advisor = models.ManyToManyField(Person, related_name="advised_projects")
@@ -167,6 +178,9 @@ class Project(Provenance, Registerable):
         self.approval_date = timezone.now()
         self.save(user)
 
+    def natural_key(self):
+        return (self.title, self.description)
+
 class Address(Provenance, Registerable):
     person = models.ForeignKey(Person, on_delete=models.CASCADE, null=True, blank=True, related_name="business_address")
     organization = models.ForeignKey(Organization, on_delete=models.CASCADE, null=True, related_name="org_address")
@@ -184,4 +198,12 @@ class Address(Provenance, Registerable):
                            self.zip_code,
                            self.state,
                            self.country])
+
+    def natural_key(self):
+        return (self.address1,
+                self.address2,
+                self.city,
+                self.zip_code,
+                self.state,
+                self.country) + self.person.natural_key() + self.organization.natural_key()
 
