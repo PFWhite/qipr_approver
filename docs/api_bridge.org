@@ -42,12 +42,14 @@ We need to make sure that models are creating GUID's and those are passed
 That way we only need to look up that one thing in order to match and we
 will always have the same object mapper
 
-*** TODO GUID
-- [ ] add guid generation to provenance
-- [ ] make sure natural keys pass guid as item 0
+*** DONE GUID
+CLOSED: [2016-09-01 Thu 10:03]
+- [X] add guid generation to provenance
+- [X] make sure natural keys pass guid as item 0
 *** TODO option 3: create the item from the natural key if we have it
 - [ ] pass over all adjacent models
 - [ ] natural key passes most important stuff
+- [ ] make sure that passing the provenance from the other database does the right thing
 ** TODO Related object deserialization
 Since we are serializing with natural_keys we need to define
 how to reserialize. This will be needed in the registry as well

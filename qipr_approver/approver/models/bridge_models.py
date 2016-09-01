@@ -6,5 +6,8 @@ class Registerable(models.Model):
     def register(self):
         self.in_registry = True
 
+    def natural_key(self):
+        return (self.guid, self.get_natural_dict())
+
     class Meta:
         abstract = True
