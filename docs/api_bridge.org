@@ -34,30 +34,27 @@ Models cannot be added to a remote database if the foreign keys referenced
 in related relationships do not correspond to an existing model in the
 remote database.
 
-Therefore when transferring models, we have to transfer them without
-their relationships. Some time after, we can link them up.
+So we make sure the natural key contains the most important information
+about the related item. This way we can remake that item in the database
 
-We could serialize and expand recursively if there wasnt the danger 
-of circular dependancies. 
+We need to make sure that models are creating GUID's and those are passed
 
-I.E. person A owns project Z which has B is a collaborator on project X 
-which has person A as a collaborator. 
+That way we only need to look up that one thing in order to match and we
+will always have the same object mapper
 
-Expansion will not terminate in the previous case
-*** Pass models without relations
-- [ ] when serializing, pass model without relations
-- [ ] check to see if adjacent models are in the registry
-  - [ ] if yes, connect the relations
-  - [ ] if no, get those over sometime 
-**** option 1: do not pass relationships
-- [ ] periodically check and see if we can connect models
-- [ ] when we can submit the connections to make
-**** option 2: pass the relationship adjacency matrix
-- [ ] pass over all the natural key adjacency information
-- [ ] have registry fill in the relationships periodically
+*** TODO GUID
+- [ ] add guid generation to provenance
+- [ ] make sure natural keys pass guid as item 0
+*** TODO option 3: create the item from the natural key if we have it
+- [ ] pass over all adjacent models
+- [ ] natural key passes most important stuff
 ** TODO Related object deserialization
 Since we are serializing with natural_keys we need to define
 how to reserialize. This will be needed in the registry as well
+
+This is now easy, steps are as follows
+1. lookup guid to see if already present. If so, use that model
+2. If not create new model
 * Registry Implementation
 ** TODO Api endpoints
 ** TODO Make sure that the Approver has to log in or verify its identity
