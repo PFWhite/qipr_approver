@@ -98,8 +98,13 @@ class Person(Provenance, Registerable):
     def __str__(self, delimiter=' '):
         return delimiter.join([str(item) for item in [self.first_name, self.last_name, self.email_address]])
 
-    def natural_key(self):
-        return (self.gatorlink, self.first_name, self.last_name)
+    def get_natural_dict(self):
+        return {
+            'gatorlink': self.gatorlink,
+            'first_name': self.first_name,
+            'last_name': self.last_name,
+            'email_address': self.email_address,
+        }
 
 
 class Project(Provenance, Registerable):
@@ -139,8 +144,14 @@ class Project(Provenance, Registerable):
         self.approval_date = timezone.now()
         self.save(user)
 
-    def natural_key(self):
-        return (self.title, self.description)
+    def get_natural_dict(self):
+        return {
+            'title': self.title,
+            'description': self.description,
+            'owner': self.owner.natural_key(),
+            'collaborators': [item.natural_key() for item in self.collaborator],
+            'keyword': [item.natural_key() for item in self.keyword],
+        }
 
 class Address(Provenance, Registerable):
     person = models.ForeignKey(Person, on_delete=models.CASCADE, null=True, blank=True, related_name="business_address")
@@ -160,11 +171,13 @@ class Address(Provenance, Registerable):
                                self.state,
                                self.country])
 
-    def natural_key(self):
-        return (self.address1,
-                self.address2,
-                self.city,
-                self.zip_code,
-                self.state,
-                self.country) + self.person.natural_key() + self.organization.natural_key()
-
+    def get_natural_dict(self):
+        return {
+            'address1': self.address1,
+            'address2': self.address2,
+            'city': self.city,
+            'zip_code': self.zip_code,
+            'state': self.state,
+            'country': self.country,
+            'person': self.person.natural_key(),
+        }

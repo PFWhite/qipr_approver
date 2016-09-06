@@ -46,14 +46,14 @@ will always have the same object mapper
 CLOSED: [2016-09-01 Thu 10:03]
 - [X] add guid generation to provenance
 - [X] make sure natural keys pass guid as item 0
-*** TODO option 3: create the item from the natural key if we have it
+*** DONE option 3: create the item from the natural key if we have it
+CLOSED: [2016-09-06 Tue 09:24]
 - [X] pass over all adjacent models
-- [-] natural key passes most important stuff
+- [X] natural key passes most important stuff with get_natural_dict
   - [X] tags
-  - [ ] person
-  - [ ] project
-  - [ ] address
-- [ ] make sure that passing the provenance from the other database does the right thing
+  - [X] person
+  - [X] project
+  - [X] address
 ** TODO Related object deserialization
 Since we are serializing with natural_keys we need to define
 how to reserialize. This will be needed in the registry as well
@@ -85,4 +85,5 @@ sudo python3 -m http.server 80
 - [ ] On create
 * Registry Implementation
 ** TODO Api endpoints
+- [ ] make sure that passing the provenance from the other database does the right thing
 ** TODO Make sure that the Approver has to log in or verify its identity
