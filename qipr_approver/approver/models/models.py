@@ -95,8 +95,8 @@ class Person(Provenance, Registerable):
     clinical_area = models.ManyToManyField(ClinicalArea)
     tag_property_name = 'email_address'
 
-    def __str__(self, delimiter=' '):
-        return delimiter.join([str(item) for item in [self.first_name, self.last_name, self.email_address]])
+    def __str__(self):
+        return ' '.join([str(item) for item in [self.first_name, self.last_name, self.email_address]])
 
     def get_natural_dict(self):
         return {
@@ -123,8 +123,8 @@ class Project(Provenance, Registerable):
     safety_target = models.ManyToManyField(SafetyTarget)
     title = models.CharField(max_length=300)
 
-    def __str__(self, delimiter=' '):
-        return delimiter.join([self.title, str(self.owner, delimiter)])
+    def __str__(self):
+        return ' '.join([self.title, str(self.owner.gatorlink)])
 
     def get_is_editable(self):
         """
@@ -163,13 +163,13 @@ class Address(Provenance, Registerable):
     state = models.CharField(max_length=2, choices=STATE_CHOICES, null=True, blank=True)
     country = models.CharField(max_length=2, choices=COUNTRY_CHOICES, null=True, blank=True)
 
-    def __str__(self, delimiter=" ; "):
-        return delimiter.join([self.address1,
-                               self.address2,
-                               self.city,
-                               self.zip_code,
-                               self.state,
-                               self.country])
+    def __str__(self):
+        return ' ; '.join([self.address1,
+                           self.address2,
+                           self.city,
+                           self.zip_code,
+                           self.state,
+                           self.country])
 
     def get_natural_dict(self):
         return {
