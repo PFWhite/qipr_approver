@@ -104,6 +104,7 @@ class Person(Provenance, Registerable):
             'first_name': self.first_name,
             'last_name': self.last_name,
             'email_address': self.email_address,
+            'model_class_name': self.__class__.__name__,
         }
 
 
@@ -149,8 +150,9 @@ class Project(Provenance, Registerable):
             'title': self.title,
             'description': self.description,
             'owner': self.owner.natural_key(),
-            'collaborators': [item.natural_key() for item in self.collaborator],
-            'keyword': [item.natural_key() for item in self.keyword],
+            'collaborators': [item.natural_key() for item in self.collaborator.all()],
+            'keyword': [item.natural_key() for item in self.keyword.all()],
+            'model_class_name': self.__class__.__name__,
         }
 
 class Address(Provenance, Registerable):
