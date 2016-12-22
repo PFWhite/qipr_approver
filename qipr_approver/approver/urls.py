@@ -25,6 +25,7 @@ urlpatterns = [
     url(r'^api/$', api.index, name='api_index'),
     url(r'^api/users$', api.users, name='api_users'),
     url(r'^api/tags$', api.tags, name='api_tags'),
+    url(r'^api/oauth/token$', api.oauth_token, name='oauth_token'),
     url(r'^logout/$', logout, {'next_page': '/'}, name='logout'),
     url(r'^error404/$', views.error404, name='error404'),
 ]

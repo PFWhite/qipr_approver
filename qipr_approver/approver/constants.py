@@ -53,6 +53,9 @@ answer_submit_names = {
     'project_id': 'project_id',
 }
 
+oauth_secret = 'taR3c1p9qCMQD6uQfT9UU5IzGuiIpIkkYzY4E7Z8'
+oauth_client_id = 'mLB7B9ZrN7hkdlvvVjSxqDqSocmGBcfVJjOZ1mIXGHjkaNVx0B8tYMPdl0Hm1Fa4B2RkRSG2PqWfCSM48tXLYdiT84hWGpSRNJG4164LjXRk1FpnXKA4j1oFSpTl71Gm'
+
 projects_per_page = 25
 
 users_per_page = 25
