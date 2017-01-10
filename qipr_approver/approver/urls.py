@@ -1,6 +1,7 @@
 from django.conf.urls import url
 from django.contrib.auth.views import logout
 from approver import views, api
+from approver.bridge import get_client_urls as get_auth_urls
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
@@ -28,4 +29,4 @@ urlpatterns = [
     url(r'^api/oauth/token$', api.oauth_token, name='oauth_token'),
     url(r'^logout/$', logout, {'next_page': '/'}, name='logout'),
     url(r'^error404/$', views.error404, name='error404'),
-]
+] + get_oauth_urls()

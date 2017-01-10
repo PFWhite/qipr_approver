@@ -53,8 +53,14 @@ answer_submit_names = {
     'project_id': 'project_id',
 }
 
-oauth_secret = 'taR3c1p9qCMQD6uQfT9UU5IzGuiIpIkkYzY4E7Z8'
-oauth_client_id = 'mLB7B9ZrN7hkdlvvVjSxqDqSocmGBcfVJjOZ1mIXGHjkaNVx0B8tYMPdl0Hm1Fa4B2RkRSG2PqWfCSM48tXLYdiT84hWGpSRNJG4164LjXRk1FpnXKA4j1oFSpTl71Gm'
+OAUTH = {
+    'secret': 'mLB7B9ZrN7hkdlvvVjSxqDqSocmGBcfVJjOZ1mIXGHjkaNVx0B8tYMPdl0Hm1Fa4B2RkRSG2PqWfCSM48tXLYdiT84hWGpSRNJG4164LjXRk1FpnXKA4j1oFSpTl71Gm',
+    'client_id': 'taR3c1p9qCMQD6uQfT9UU5IzGuiIpIkkYzY4E7Z8',
+    'auth_host': os.environ['QIPR_APPROVER_REGISTRY_HOST'],
+    'auth_port': os.environ['QIPR_APPROVER_REGISTRY_PORT'],
+}
+
+DEBUG_MODE = (os.environ['DJANGO_CONFIGURATION'] == 'development')
 
 projects_per_page = 25
 
